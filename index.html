@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mrs Sim's Toolkit ✨</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#120A26;
+  --bg2:#1B1035;
+  --panel:rgba(255,255,255,0.06);
+  --panel-border:rgba(255,255,255,0.14);
+  --text:#F4EEFF;
+  --text-soft:#BEB3E0;
+  --cyan:#2FE3E8;
+  --pink:#FF4FC3;
+  --lime:#C6FF3E;
+  --purple:#9B6BFF;
+  --orange:#FFB020;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  min-height:100vh;
+  background: radial-gradient(1200px 700px at 15% 0%, #2A1257 0%, transparent 60%),
+              radial-gradient(1000px 700px at 90% 20%, #0E2A4A 0%, transparent 55%),
+              radial-gradient(900px 800px at 50% 100%, #33113E 0%, transparent 55%),
+              var(--bg);
+  color:var(--text);
+  font-family:'Nunito', sans-serif;
+  overflow-x:hidden;
+  position:relative;
+}
+
+/* floating glow blobs */
+.blob{
+  position:fixed;
+  border-radius:50%;
+  filter:blur(70px);
+  opacity:0.35;
+  z-index:0;
+  animation:float 14s ease-in-out infinite;
+}
+.b1{ width:380px; height:380px; background:var(--pink); top:-80px; left:-100px; }
+.b2{ width:320px; height:320px; background:var(--cyan); top:30%; right:-120px; animation-duration:17s; }
+.b3{ width:300px; height:300px; background:var(--purple); bottom:-100px; left:20%; animation-duration:12s; }
+.b4{ width:260px; height:260px; background:var(--lime); bottom:10%; right:10%; animation-duration:19s; }
+@keyframes float{
+  0%,100%{ transform: translate(0,0) scale(1); }
+  50%{ transform: translate(30px,-40px) scale(1.08); }
+}
+
+.wrap{ position:relative; z-index:1; max-width:1080px; margin:0 auto; padding:0 20px 70px; }
+
+/* ---------- Header ---------- */
+header{
+  text-align:center;
+  padding:56px 16px 40px;
+}
+.badge{
+  display:inline-block;
+  background:var(--panel);
+  border:1px solid var(--panel-border);
+  backdrop-filter:blur(10px);
+  padding:7px 18px;
+  border-radius:999px;
+  font-family:'Baloo 2', sans-serif;
+  font-weight:700;
+  font-size:13px;
+  letter-spacing:.04em;
+  color:var(--cyan);
+  margin-bottom:18px;
+}
+h1{
+  font-family:'Baloo 2', sans-serif;
+  font-weight:800;
+  font-size:clamp(36px, 7vw, 58px);
+  margin:0 0 14px;
+  line-height:1.05;
+  background:linear-gradient(90deg, var(--cyan), var(--pink) 50%, var(--purple));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  filter:drop-shadow(0 0 26px rgba(155,107,255,0.35));
+}
+header p.sub{
+  max-width:480px;
+  margin:0 auto;
+  color:var(--text-soft);
+  font-weight:700;
+  font-size:16px;
+}
+
+/* ---------- Wing ---------- */
+.wing{ margin-top:56px; }
+.wing-head{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-bottom:22px;
+}
+.emoji-chip{
+  width:52px; height:52px;
+  border-radius:16px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:26px;
+  background:var(--panel);
+  border:1px solid var(--panel-border);
+  box-shadow:0 0 24px var(--glow, rgba(155,107,255,0.35));
+}
+.wing-head h2{
+  font-family:'Baloo 2', sans-serif;
+  font-weight:700;
+  font-size:24px;
+  margin:0;
+  color:var(--text);
+}
+.wing-head p{
+  margin:2px 0 0;
+  font-size:14px;
+  color:var(--text-soft);
+  font-weight:700;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));
+  gap:20px;
+}
+
+.card{
+  background:var(--panel);
+  border:1px solid var(--panel-border);
+  backdrop-filter:blur(14px);
+  border-radius:22px;
+  padding:22px 20px 20px;
+  position:relative;
+  overflow:hidden;
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:22px;
+  padding:1px;
+  background:linear-gradient(135deg, var(--glow, var(--purple)), transparent 60%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  opacity:0.6;
+  pointer-events:none;
+}
+.card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 0 34px var(--glow, rgba(155,107,255,0.35));
+  border-color:var(--glow, var(--purple));
+}
+.card .tag{
+  display:inline-block;
+  font-family:'Baloo 2', sans-serif;
+  font-weight:600;
+  font-size:11.5px;
+  letter-spacing:.03em;
+  text-transform:uppercase;
+  color:var(--glow, var(--purple));
+  margin-bottom:8px;
+}
+.card h3{
+  font-family:'Baloo 2', sans-serif;
+  font-weight:700;
+  font-size:20px;
+  margin:0 0 8px;
+  color:var(--text);
+}
+.card p.desc{
+  font-size:14px;
+  color:var(--text-soft);
+  line-height:1.5;
+  margin:0 0 16px;
+  min-height:58px;
+}
+.card a.play{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-family:'Baloo 2', sans-serif;
+  font-weight:700;
+  font-size:14px;
+  color:#0D0620;
+  background:linear-gradient(90deg, var(--glow, var(--purple)), #fff2 150%);
+  background:var(--glow, var(--purple));
+  padding:9px 18px;
+  border-radius:999px;
+  text-decoration:none;
+}
+.card a.play:hover{ filter:brightness(1.12); }
+
+footer{
+  text-align:center;
+  margin-top:60px;
+  padding-top:26px;
+  border-top:1px solid var(--panel-border);
+  color:var(--text-soft);
+  font-family:'Baloo 2', sans-serif;
+  font-size:14px;
+}
+
+@media (prefers-reduced-motion: reduce){
+  .blob{ animation:none; }
+  .card{ transition:none; }
+}
+</style>
+</head>
+<body>
+
+<span class="blob b1"></span>
+<span class="blob b2"></span>
+<span class="blob b3"></span>
+<span class="blob b4"></span>
+
+<div class="wrap">
+
+<header>
+  <span class="badge">🎮 DAZHONG PRIMARY · P3–P4</span>
+  <h1>Mrs Sim's Toolkit</h1>
+  <p class="sub">Every game, every tool, all in one place. Pick a zone and let's gooo ✨</p>
+</header>
+
+<!-- COMPREHENSION -->
+<section class="wing" style="--glow:var(--cyan)">
+  <div class="wing-head">
+    <span class="emoji-chip">🔍</span>
+    <div>
+      <h2>Comprehension</h2>
+      <p>Read it closely. Solve the case.</p>
+    </div>
+  </div>
+  <div class="cards">
+
+    <div class="card">
+      <span class="tag">Term 2 · Unit 5</span>
+      <h3>Case File: The Living Room Mystery</h3>
+      <p class="desc">A detective-themed reading mystery — 14 clues, glossary pop-ups, and a picture walkthrough before the text.</p>
+      <a class="play" href="https://mrsmsim.github.io/RubySunflowerOE">Play now →</a>
+    </div>
+
+    <div class="card">
+      <span class="tag">Term 3 · Unit 7</span>
+      <h3>Case File: Sarah's Quest</h3>
+      <p class="desc">A second detective mystery, same Case File format as the Living Room Mystery.</p>
+      <a class="play" href="https://mrsmsim.github.io/DinoexistOE">Play now →</a>
+    </div>
+
+    <div class="card">
+      <span class="tag">Reading companion</span>
+      <h3>Heartbeats in the Dark</h3>
+      <p class="desc">A scene-by-scene reading companion with a heartbeat tension tracker and read-aloud.</p>
+      <a class="play" href="https://mrsmsim.github.io/heartbeatsinthedark">Play now →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- COMPOSITION & WRITING -->
+<section class="wing" style="--glow:var(--pink)">
+  <div class="wing-head">
+    <span class="emoji-chip">🎭</span>
+    <div>
+      <h2>Composition &amp; Writing</h2>
+      <p>Your story. Your words. Go write it.</p>
+    </div>
+  </div>
+  <div class="cards">
+
+    <div class="card">
+      <span class="tag">Pre-writing toolkit</span>
+      <h3>An Adventure</h3>
+      <p class="desc">Four missions: spot-the-adventure, word web, cloze practice, and a tap-to-build model story.</p>
+      <a class="play" href="https://mrsmsim.github.io/adventures">Play now →</a>
+    </div>
+
+    <div class="card">
+      <span class="tag">Descriptive writing</span>
+      <h3>Show, Not Tell</h3>
+      <p class="desc">Turn a flat sentence into a scene, using places you already know well.</p>
+      <a class="play" href="https://mrsmsim.github.io/shownottell">Play now →</a>
+    </div>
+
+    <div class="card">
+      <span class="tag">Term 3 · Unit 7</span>
+      <h3>Overcoming a Fear</h3>
+      <p class="desc">Sort fear vs. courage clues, plan your scenes, learn Brave Words, then write your own.</p>
+      <a class="play" href="https://mrsmsim.github.io/overcomingfear">Play now →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- VOCABULARY & SPELLING -->
+<section class="wing" style="--glow:var(--lime)">
+  <div class="wing-head">
+    <span class="emoji-chip">🔤</span>
+    <div>
+      <h2>Vocabulary &amp; Spelling</h2>
+      <p>Level up your word bank.</p>
+    </div>
+  </div>
+  <div class="cards">
+
+    <div class="card">
+      <span class="tag">Term 3 · Unit 6</span>
+      <h3>Dinosaurs Exist</h3>
+      <p class="desc">Flip-card practice, a speech-recognition Dig Site Challenge, and reading practice with a live score.</p>
+      <a class="play" href="https://mrsmsim.github.io/DinosaursExist">Play now →</a>
+    </div>
+
+    <div class="card">
+      <span class="tag">Spelling curriculum</span>
+      <h3>The Spelling Expedition</h3>
+      <p class="desc">A themed spelling journey across 8 "lands" — word by word, level by level.</p>
+      <a class="play" href="https://mrsmsim.github.io/spelling">Play now →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- GRAMMAR & SENTENCE SKILLS -->
+<section class="wing" style="--glow:var(--purple)">
+  <div class="wing-head">
+    <span class="emoji-chip">⚙️</span>
+    <div>
+      <h2>Grammar &amp; Sentence Skills</h2>
+      <p>Quick drills. Big gains.</p>
+    </div>
+  </div>
+  <div class="cards">
+
+    <div class="card">
+      <span class="tag">Punctuation drill</span>
+      <h3>Speech Bubble Builder</h3>
+      <p class="desc">Tap the right punctuation for direct speech — no typing needed.</p>
+      <a class="play" href="https://mrsmsim.github.io/directspeech">Play now →</a>
+    </div>
+
+    <div class="card">
+      <span class="tag">Sentence fluency</span>
+      <h3>Sentence Train</h3>
+      <p class="desc">Build sentences car-by-car across Animals, School, and Food sets.</p>
+      <a class="play" href="https://mrsmsim.github.io/sentencetrain">Play now →</a>
+    </div>
+
+    <div class="card">
+      <span class="tag">Sentence ordering</span>
+      <h3>Story Builder</h3>
+      <p class="desc">Drag words into order to rebuild a story, with read-aloud at three speeds.</p>
+      <a class="play" href="https://mrsmsim.github.io/storybuilder">Play now →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- P3 MATHEMATICS -->
+<section class="wing" style="--glow:var(--orange)">
+  <div class="wing-head">
+    <span class="emoji-chip">🔢</span>
+    <div>
+      <h2>P3 Mathematics</h2>
+      <p>Fractions and facts, race-mode on.</p>
+    </div>
+  </div>
+  <div class="cards">
+
+    <div class="card">
+      <span class="tag">Fractions</span>
+      <h3>Fraction Games</h3>
+      <p class="desc">Five quick-fire games: equivalence, simplifying, and matching fractions to pictures.</p>
+      <a class="play" href="https://mrsmsim.github.io/P3Math">Play now →</a>
+    </div>
+
+    <div class="card">
+      <span class="tag">Multiplication facts</span>
+      <h3>Times Tables Racer</h3>
+      <p class="desc">Race a rival car — pick your tables, pick your speed, go!</p>
+      <a class="play" href="https://mrsmsim.github.io/multiplication">Play now →</a>
+    </div>
+
+  </div>
+</section>
+
+<footer>made with 💜 by Mrs Sim · Dazhong Primary School</footer>
+
+</div>
+</body>
+</html>
