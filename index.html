@@ -5,232 +5,306 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mrs Sim's Toolkit ✨</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Lexend:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#120A26;
-  --bg2:#1B1035;
-  --panel:rgba(255,255,255,0.06);
-  --panel-border:rgba(255,255,255,0.14);
-  --text:#F4EEFF;
-  --text-soft:#BEB3E0;
-  --cyan:#2FE3E8;
-  --pink:#FF4FC3;
-  --lime:#C6FF3E;
-  --purple:#9B6BFF;
-  --orange:#FFB020;
+  --paper:#FFF8EC;
+  --dot:#EADFC8;
+  --ink:#2B2140;
+  --ink-soft:#62597A;
+  --card:#FFFFFF;
+  --sun:#FFD43B;
+  /* zone colours (same names as before, re-tuned for paper) */
+  --cyan:#0B8793;
+  --pink:#D12F78;
+  --lime:#3F8F1F;
+  --purple:#6A4BF0;
+  --orange:#C97A00;
+  --coral:#D9502F;
+  --red:#D62839;
 }
 *{box-sizing:border-box;}
 body{
   margin:0;
   min-height:100vh;
-  background: radial-gradient(1200px 700px at 15% 0%, #2A1257 0%, transparent 60%),
-              radial-gradient(1000px 700px at 90% 20%, #0E2A4A 0%, transparent 55%),
-              radial-gradient(900px 800px at 50% 100%, #33113E 0%, transparent 55%),
-              var(--bg);
-  color:var(--text);
-  font-family:'Nunito', sans-serif;
+  background-color:var(--paper);
+  background-image:radial-gradient(var(--dot) 1.4px, transparent 1.6px);
+  background-size:24px 24px;
+  color:var(--ink);
+  font-family:'Lexend', sans-serif;
   overflow-x:hidden;
-  position:relative;
 }
-
-/* floating glow blobs */
-.blob{
-  position:fixed;
-  border-radius:50%;
-  filter:blur(70px);
-  opacity:0.35;
-  z-index:0;
-  animation:float 14s ease-in-out infinite;
-}
-.b1{ width:380px; height:380px; background:var(--pink); top:-80px; left:-100px; }
-.b2{ width:320px; height:320px; background:var(--cyan); top:30%; right:-120px; animation-duration:17s; }
-.b3{ width:300px; height:300px; background:var(--purple); bottom:-100px; left:20%; animation-duration:12s; }
-.b4{ width:260px; height:260px; background:var(--lime); bottom:10%; right:10%; animation-duration:19s; }
-@keyframes float{
-  0%,100%{ transform: translate(0,0) scale(1); }
-  50%{ transform: translate(30px,-40px) scale(1.08); }
-}
-
-.wrap{ position:relative; z-index:1; max-width:1080px; margin:0 auto; padding:0 20px 70px; }
+.blob{ display:none; }
+.wrap{ max-width:1080px; margin:0 auto; padding:0 20px 70px; }
 
 /* ---------- Header ---------- */
-header{
-  text-align:center;
-  padding:56px 16px 40px;
-}
+header{ text-align:center; padding:52px 8px 18px; }
 .badge{
   display:inline-block;
-  background:var(--panel);
-  border:1px solid var(--panel-border);
-  backdrop-filter:blur(10px);
-  padding:7px 18px;
-  border-radius:999px;
+  background:var(--sun);
+  color:var(--ink);
+  border:2.5px solid var(--ink);
+  border-radius:12px;
+  padding:6px 16px;
   font-family:'Baloo 2', sans-serif;
-  font-weight:700;
+  font-weight:800;
   font-size:13px;
-  letter-spacing:.04em;
-  color:var(--cyan);
+  letter-spacing:.05em;
+  transform:rotate(-2deg);
+  box-shadow:3px 3px 0 var(--ink);
   margin-bottom:18px;
 }
 h1{
   font-family:'Baloo 2', sans-serif;
   font-weight:800;
-  font-size:clamp(36px, 7vw, 58px);
+  font-size:clamp(40px, 8vw, 66px);
+  line-height:1;
   margin:0 0 14px;
-  line-height:1.05;
-  background:linear-gradient(90deg, var(--cyan), var(--pink) 50%, var(--purple));
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
-  filter:drop-shadow(0 0 26px rgba(155,107,255,0.35));
+  color:var(--ink);
+}
+h1 span{
+  background:linear-gradient(transparent 58%, #FFB3D4 58%, #FFB3D4 88%, transparent 88%);
+  padding:0 6px;
 }
 header p.sub{
-  max-width:480px;
+  max-width:500px;
   margin:0 auto;
-  color:var(--text-soft);
-  font-weight:700;
+  color:var(--ink-soft);
   font-size:16px;
+  line-height:1.5;
 }
 
-/* ---------- Wing ---------- */
-.wing{ margin-top:56px; }
+/* ---------- Level switch ---------- */
+.levels{
+  display:flex; justify-content:center; flex-wrap:wrap; gap:12px;
+  margin:28px auto 0;
+}
+.levels button{
+  font-family:'Baloo 2', sans-serif;
+  font-weight:800;
+  font-size:18px;
+  min-width:72px;
+  color:var(--ink);
+  background:var(--card);
+  border:2.5px solid var(--ink);
+  padding:8px 20px;
+  border-radius:14px;
+  cursor:pointer;
+  box-shadow:4px 4px 0 var(--ink);
+  transition:transform .12s ease, box-shadow .12s ease, background .12s ease;
+}
+.levels button:hover{ background:#FFF1B8; }
+.levels button[aria-pressed="true"]{
+  background:var(--sun);
+  transform:translate(3px,3px);
+  box-shadow:1px 1px 0 var(--ink);
+}
+.levels button:focus-visible, .card a.play:focus-visible{ outline:3px solid var(--purple); outline-offset:3px; }
+.levels-hint{
+  text-align:center; margin:14px 0 0;
+  font-size:13.5px; color:var(--ink-soft);
+}
+
+/* ---------- Zones ---------- */
+.wing{ margin-top:58px; }
 .wing-head{
-  display:flex;
-  align-items:center;
-  gap:14px;
-  margin-bottom:22px;
+  display:flex; align-items:center; gap:14px;
+  margin-bottom:24px;
+  padding-bottom:12px;
+  border-bottom:3px dashed color-mix(in srgb, var(--glow) 45%, transparent);
 }
 .emoji-chip{
-  width:52px; height:52px;
-  border-radius:16px;
+  width:56px; height:56px; flex:none;
+  border-radius:50%;
   display:flex; align-items:center; justify-content:center;
-  font-size:26px;
-  background:var(--panel);
-  border:1px solid var(--panel-border);
-  box-shadow:0 0 24px var(--glow, rgba(155,107,255,0.35));
+  font-size:28px;
+  background:color-mix(in srgb, var(--glow) 18%, white);
+  border:2.5px solid var(--ink);
+  box-shadow:3px 3px 0 var(--glow);
 }
 .wing-head h2{
   font-family:'Baloo 2', sans-serif;
-  font-weight:700;
-  font-size:24px;
+  font-weight:800;
+  font-size:27px;
+  line-height:1.1;
   margin:0;
-  color:var(--text);
 }
-.wing-head p{
-  margin:2px 0 0;
-  font-size:14px;
-  color:var(--text-soft);
-  font-weight:700;
-}
+.wing-head p{ margin:3px 0 0; font-size:14.5px; color:var(--ink-soft); }
 
 .cards{
   display:grid;
   grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));
-  gap:20px;
+  gap:26px 24px;
 }
 
+/* ---------- Cards ---------- */
 .card{
-  background:var(--panel);
-  border:1px solid var(--panel-border);
-  backdrop-filter:blur(14px);
-  border-radius:22px;
-  padding:22px 20px 20px;
   position:relative;
-  overflow:hidden;
-  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  background:var(--card);
+  border:2.5px solid var(--ink);
+  border-radius:18px;
+  padding:28px 20px 20px;
+  box-shadow:6px 6px 0 var(--glow);
+  transition:transform .15s ease, box-shadow .15s ease;
+  display:flex; flex-direction:column;
 }
+/* washi tape */
 .card::before{
   content:"";
   position:absolute;
-  inset:0;
-  border-radius:22px;
-  padding:1px;
-  background:linear-gradient(135deg, var(--glow, var(--purple)), transparent 60%);
-  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite:xor;
-  mask-composite:exclude;
-  opacity:0.6;
-  pointer-events:none;
+  top:-12px; left:50%;
+  width:92px; height:24px;
+  transform:translateX(-50%) rotate(-3deg);
+  background:repeating-linear-gradient(45deg,
+     color-mix(in srgb, var(--glow) 55%, transparent) 0 8px,
+     color-mix(in srgb, var(--glow) 35%, transparent) 8px 16px);
+  border-radius:3px;
 }
+.card:nth-child(even)::before{ transform:translateX(-50%) rotate(4deg); }
 .card:hover{
-  transform:translateY(-5px);
-  box-shadow:0 0 34px var(--glow, rgba(155,107,255,0.35));
-  border-color:var(--glow, var(--purple));
+  transform:translate(-3px,-3px);
+  box-shadow:9px 9px 0 var(--glow);
 }
 .card .tag{
-  display:inline-block;
   font-family:'Baloo 2', sans-serif;
-  font-weight:600;
-  font-size:11.5px;
-  letter-spacing:.03em;
+  font-weight:700;
+  font-size:12px;
+  letter-spacing:.05em;
   text-transform:uppercase;
-  color:var(--glow, var(--purple));
-  margin-bottom:8px;
+  color:var(--glow);
+  margin-bottom:6px;
 }
 .card h3{
   font-family:'Baloo 2', sans-serif;
-  font-weight:700;
-  font-size:20px;
+  font-weight:800;
+  font-size:21px;
+  line-height:1.2;
   margin:0 0 8px;
-  color:var(--text);
 }
 .card p.desc{
-  font-size:14px;
-  color:var(--text-soft);
-  line-height:1.5;
-  margin:0 0 16px;
-  min-height:58px;
+  font-size:14.5px;
+  line-height:1.55;
+  color:var(--ink-soft);
+  margin:0 0 18px;
+  flex:1;
 }
 .card a.play{
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
+  align-self:flex-start;
+  display:inline-flex; align-items:center; gap:6px;
   font-family:'Baloo 2', sans-serif;
-  font-weight:700;
-  font-size:14px;
-  color:#0D0620;
-  background:linear-gradient(90deg, var(--glow, var(--purple)), #fff2 150%);
-  background:var(--glow, var(--purple));
-  padding:9px 18px;
-  border-radius:999px;
+  font-weight:800;
+  font-size:15px;
+  color:#fff;
+  background:var(--ink);
+  padding:8px 18px;
+  border-radius:12px;
   text-decoration:none;
+  box-shadow:3px 3px 0 var(--glow);
+  transition:transform .12s ease, box-shadow .12s ease;
 }
-.card a.play:hover{ filter:brightness(1.12); }
+.card a.play:hover{ transform:translate(-1px,-1px); box-shadow:4px 4px 0 var(--glow); }
+.card .new{
+  position:absolute;
+  top:-14px; right:-10px;
+  width:50px; height:50px;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Baloo 2', sans-serif;
+  font-weight:800;
+  font-size:13px;
+  color:var(--ink);
+  background:var(--sun);
+  border:2.5px solid var(--ink);
+  border-radius:50%;
+  transform:rotate(12deg);
+  z-index:1;
+}
+
+.card[hidden], .wing[hidden]{ display:none; }
+
+/* ---------- Empty level ---------- */
+.empty-level{
+  display:none;
+  text-align:center;
+  margin:56px auto 0;
+  max-width:460px;
+  padding:30px 24px;
+  background:var(--card);
+  border:2.5px dashed var(--ink);
+  border-radius:18px;
+}
+.empty-level.show{ display:block; }
+.empty-level .big{ font-size:42px; }
+.empty-level h3{ font-family:'Baloo 2', sans-serif; font-weight:800; font-size:24px; margin:6px 0; }
+.empty-level p{ margin:0; color:var(--ink-soft); }
 
 footer{
   text-align:center;
-  margin-top:60px;
-  padding-top:26px;
-  border-top:1px solid var(--panel-border);
-  color:var(--text-soft);
+  margin-top:64px;
+  padding-top:24px;
+  border-top:3px dashed var(--dot);
+  color:var(--ink-soft);
   font-family:'Baloo 2', sans-serif;
-  font-size:14px;
+  font-weight:600;
+  font-size:15px;
 }
 
+@media (max-width:520px){
+  header{ padding-top:36px; }
+  .wing-head h2{ font-size:23px; }
+}
 @media (prefers-reduced-motion: reduce){
-  .blob{ animation:none; }
-  .card{ transition:none; }
+  .card, .card a.play, .levels button{ transition:none; }
 }
 </style>
 </head>
 <body>
 
-<span class="blob b1"></span>
-<span class="blob b2"></span>
-<span class="blob b3"></span>
-<span class="blob b4"></span>
 
 <div class="wrap">
 
 <header>
-  <span class="badge">🎮 DAZHONG PRIMARY · P3–P4</span>
-  <h1>Mrs Sim's Toolkit</h1>
+  <span class="badge">🎮 DAZHONG PRIMARY · P3–P6</span>
+  <h1><span>Mrs Sim's</span> Toolkit</h1>
   <p class="sub">Every game, every tool, all in one place. Pick a zone and let's gooo ✨</p>
+  <div class="levels" role="group" aria-label="Choose your level">
+    <button type="button" data-pick="all">All</button>
+    <button type="button" data-pick="P3">P3</button>
+    <button type="button" data-pick="P4">P4</button>
+    <button type="button" data-pick="P6">P6</button>
+  </div>
+  <p class="levels-hint">Tap your level to see your tools</p>
 </header>
 
+<div class="empty-level" id="emptyLevel">
+  <div class="big">🚧</div>
+  <h3>Coming soon!</h3>
+  <p>New tools for this level are on the way. Check back soon ✨</p>
+</div>
+
+<!-- LITTLE RED DOT (refreshed fortnightly) -->
+<section class="wing el" style="--glow:var(--red)">
+  <div class="wing-head">
+    <span class="emoji-chip">📰</span>
+    <div>
+      <h2>Little Red Dot</h2>
+      <p>Fresh news, every two weeks. What's happening in the world?</p>
+    </div>
+  </div>
+  <div class="cards">
+
+    <div class="card" data-level="P6">
+      <span class="new">NEW</span>
+      <span class="tag">P6 · Latest issue · Updated fortnightly</span>
+      <h3>LRD Reading Lessons</h3>
+      <p class="desc">Real news stories from the newest Little Red Dot, turned into interactive reading lessons.</p>
+      <a class="play" href="https://mrsmsim.github.io/LRD">Read now →</a>
+    </div>
+
+  </div>
+</section>
+
 <!-- COMPREHENSION -->
-<section class="wing" style="--glow:var(--cyan)">
+<section class="wing el" style="--glow:var(--cyan)">
   <div class="wing-head">
     <span class="emoji-chip">🔍</span>
     <div>
@@ -240,32 +314,70 @@ footer{
   </div>
   <div class="cards">
 
-    <div class="card">
-      <span class="tag">Term 2 · Unit 5</span>
+    <div class="card" data-level="P4">
+      <span class="tag">P4 · Term 2 · Unit 5</span>
       <h3>Case File: The Living Room Mystery</h3>
       <p class="desc">A detective-themed reading mystery — 14 clues, glossary pop-ups, and a picture walkthrough before the text.</p>
       <a class="play" href="https://mrsmsim.github.io/RubySunflowerOE">Play now →</a>
     </div>
 
-    <div class="card">
-      <span class="tag">Term 3 · Unit 7</span>
+    <div class="card" data-level="P4">
+      <span class="tag">P4 · Term 3 · Unit 7</span>
       <h3>Case File: Sarah's Quest</h3>
       <p class="desc">A second detective mystery, same Case File format as the Living Room Mystery.</p>
       <a class="play" href="https://mrsmsim.github.io/DinoexistOE">Play now →</a>
     </div>
 
-    <div class="card">
-      <span class="tag">Reading companion</span>
+    <div class="card" data-level="P4">
+      <span class="tag">P4 · Reading companion</span>
       <h3>Heartbeats in the Dark</h3>
       <p class="desc">A scene-by-scene reading companion with a heartbeat tension tracker and read-aloud.</p>
       <a class="play" href="https://mrsmsim.github.io/heartbeatsinthedark">Play now →</a>
+    </div>
+
+    <div class="card" data-level="P4">
+      <span class="new">NEW</span>
+      <span class="tag">P4 · STELLAR reader companion</span>
+      <h3>All the Buzz About Honey</h3>
+      <p class="desc">Meet the words, read the text, then True or False, Sequence It and Bee Expressions.</p>
+      <a class="play" href="https://mrsmsim.github.io/honey">Play now →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- READING & SPEAKING -->
+<section class="wing el" style="--glow:var(--coral)">
+  <div class="wing-head">
+    <span class="emoji-chip">🎤</span>
+    <div>
+      <h2>Reading &amp; Speaking</h2>
+      <p>Read it out. Say it loud. Sound like a pro.</p>
+    </div>
+  </div>
+  <div class="cards">
+
+    <div class="card" data-level="P4">
+      <span class="new">NEW</span>
+      <span class="tag">P4 · Reading fluency · STELLAR</span>
+      <h3>Rats' Nests</h3>
+      <p class="desc">Practise reading the Rats' Nests text aloud until it flows smoothly.</p>
+      <a class="play" href="https://mrsmsim.github.io/ratsnest">Play now →</a>
+    </div>
+
+    <div class="card" data-level="P4">
+      <span class="new">NEW</span>
+      <span class="tag">P4 · Oral practice</span>
+      <h3>The Speaking Room</h3>
+      <p class="desc">Practise for your oral exam — talk about a picture and get friendly feedback.</p>
+      <a class="play" href="https://mrsmsim.github.io/sbc">Play now →</a>
     </div>
 
   </div>
 </section>
 
 <!-- COMPOSITION & WRITING -->
-<section class="wing" style="--glow:var(--pink)">
+<section class="wing el" style="--glow:var(--pink)">
   <div class="wing-head">
     <span class="emoji-chip">🎭</span>
     <div>
@@ -275,22 +387,22 @@ footer{
   </div>
   <div class="cards">
 
-    <div class="card">
-      <span class="tag">Pre-writing toolkit</span>
+    <div class="card" data-level="P4">
+      <span class="tag">P4 · Pre-writing toolkit</span>
       <h3>An Adventure</h3>
       <p class="desc">Four missions: spot-the-adventure, word web, cloze practice, and a tap-to-build model story.</p>
       <a class="play" href="https://mrsmsim.github.io/adventures">Play now →</a>
     </div>
 
-    <div class="card">
-      <span class="tag">Descriptive writing</span>
+    <div class="card" data-level="P4">
+      <span class="tag">P4 · Descriptive writing</span>
       <h3>Show, Not Tell</h3>
       <p class="desc">Turn a flat sentence into a scene, using places you already know well.</p>
       <a class="play" href="https://mrsmsim.github.io/shownottell">Play now →</a>
     </div>
 
-    <div class="card">
-      <span class="tag">Term 3 · Unit 7</span>
+    <div class="card" data-level="P4">
+      <span class="tag">P4 · Term 3 · Unit 7</span>
       <h3>Overcoming a Fear</h3>
       <p class="desc">Sort fear vs. courage clues, plan your scenes, learn Brave Words, then write your own.</p>
       <a class="play" href="https://mrsmsim.github.io/overcomingfear">Play now →</a>
@@ -300,7 +412,7 @@ footer{
 </section>
 
 <!-- VOCABULARY & SPELLING -->
-<section class="wing" style="--glow:var(--lime)">
+<section class="wing el" style="--glow:var(--lime)">
   <div class="wing-head">
     <span class="emoji-chip">🔤</span>
     <div>
@@ -310,15 +422,15 @@ footer{
   </div>
   <div class="cards">
 
-    <div class="card">
-      <span class="tag">Term 3 · Unit 6</span>
+    <div class="card" data-level="P4">
+      <span class="tag">P4 · Term 3 · Unit 6</span>
       <h3>Dinosaurs Exist</h3>
       <p class="desc">Flip-card practice, a speech-recognition Dig Site Challenge, and reading practice with a live score.</p>
       <a class="play" href="https://mrsmsim.github.io/DinosaursExist">Play now →</a>
     </div>
 
-    <div class="card">
-      <span class="tag">Spelling curriculum</span>
+    <div class="card" data-level="P4">
+      <span class="tag">P4 · Spelling curriculum</span>
       <h3>The Spelling Expedition</h3>
       <p class="desc">A themed spelling journey across 8 "lands" — word by word, level by level.</p>
       <a class="play" href="https://mrsmsim.github.io/spelling">Play now →</a>
@@ -328,7 +440,7 @@ footer{
 </section>
 
 <!-- GRAMMAR & SENTENCE SKILLS -->
-<section class="wing" style="--glow:var(--purple)">
+<section class="wing el" style="--glow:var(--purple)">
   <div class="wing-head">
     <span class="emoji-chip">⚙️</span>
     <div>
@@ -338,50 +450,62 @@ footer{
   </div>
   <div class="cards">
 
-    <div class="card">
-      <span class="tag">Punctuation drill</span>
+    <div class="card" data-level="P4">
+      <span class="tag">P4 · Punctuation drill</span>
       <h3>Speech Bubble Builder</h3>
       <p class="desc">Tap the right punctuation for direct speech — no typing needed.</p>
       <a class="play" href="https://mrsmsim.github.io/directspeech">Play now →</a>
     </div>
 
-    <div class="card">
-      <span class="tag">Sentence fluency</span>
+    <div class="card" data-level="P4">
+      <span class="tag">P4 · Sentence fluency</span>
       <h3>Sentence Train</h3>
       <p class="desc">Build sentences car-by-car across Animals, School, and Food sets.</p>
       <a class="play" href="https://mrsmsim.github.io/sentencetrain">Play now →</a>
     </div>
 
-    <div class="card">
-      <span class="tag">Sentence ordering</span>
+    <div class="card" data-level="P4">
+      <span class="tag">P4 · Sentence ordering</span>
       <h3>Story Builder</h3>
       <p class="desc">Drag words into order to rebuild a story, with read-aloud at three speeds.</p>
       <a class="play" href="https://mrsmsim.github.io/storybuilder">Play now →</a>
     </div>
 
-    <div class="card">
-      <span class="tag">Connectors</span>
-      <h3>Before or After?</h3>
-      <p class="desc">Put two events in time order, then join them with before or after.</p>
+    <div class="card" data-level="P4">
+      <span class="new">NEW</span>
+      <span class="tag">P4 · Time-order words</span>
+      <h3>Before &amp; After</h3>
+      <p class="desc">What happened first? Master "before" and "after" so you always get the order right.</p>
       <a class="play" href="https://mrsmsim.github.io/beforeandafter">Play now →</a>
     </div>
 
-    <div class="card">
-      <span class="tag">Connectors</span>
+    <div class="card" data-level="P4">
+      <span class="new">NEW</span>
+      <span class="tag">P4 · Verbs &amp; tenses</span>
+      <h3>Verb Lab</h3>
+      <p class="desc">Simple present and present progressive, with a special focus on getting subject–verb agreement right.</p>
+      <a class="play" href="https://mrsmsim.github.io/presenttense">Play now →</a>
+    </div>
+
+    <div class="card" data-level="P4">
+      <span class="new">NEW</span>
+      <span class="tag">P4 · Connectors</span>
       <h3>If or Unless?</h3>
-      <p class="desc">Learn that unless means "if not". Pick, build and write the sentences.</p>
+      <p class="desc">Unless means "if not". Pick, build and write sentences with if and unless.</p>
       <a class="play" href="https://mrsmsim.github.io/ifunless">Play now →</a>
     </div>
 
-    <div class="card">
-      <span class="tag">Connectors</span>
+    <div class="card" data-level="P4">
+      <span class="new">NEW</span>
+      <span class="tag">P4 · Connectors</span>
       <h3>Although or Despite?</h3>
       <p class="desc">Join two ideas that don't seem to match, using although or despite.</p>
       <a class="play" href="https://mrsmsim.github.io/althoughdespite">Play now →</a>
     </div>
 
-    <div class="card">
-      <span class="tag">Synthesis &amp; transformation</span>
+    <div class="card" data-level="P4">
+      <span class="new">NEW</span>
+      <span class="tag">P4 · Synthesis &amp; transformation</span>
       <h3>Reported Speech</h3>
       <p class="desc">Change what someone said into reported speech: person, action and time words.</p>
       <a class="play" href="https://mrsmsim.github.io/reportedspeech">Play now →</a>
@@ -390,30 +514,35 @@ footer{
   </div>
 </section>
 
-<!-- P3 MATHEMATICS -->
-<section class="wing" style="--glow:var(--orange)">
+<!-- MATHEMATICS -->
+<section class="wing el" style="--glow:var(--orange)">
   <div class="wing-head">
     <span class="emoji-chip">🔢</span>
     <div>
-      <h2>P3 Mathematics</h2>
-      <p>Fractions and facts, race-mode on.</p>
+      <h2>Mathematics</h2>
+      <p>Crunch the numbers. Race-mode on.</p>
     </div>
   </div>
   <div class="cards">
 
-    <div class="card">
-      <span class="tag">Fractions</span>
-      <h3>Fraction Games</h3>
-      <p class="desc">Five quick-fire games: equivalence, simplifying, and matching fractions to pictures.</p>
-      <a class="play" href="https://mrsmsim.github.io/P3Math">Play now →</a>
+    <div class="card" data-level="P3">
+      <span class="tag">P3 · All maths games</span>
+      <h3>P3 Maths Corner</h3>
+      <p class="desc">Every P3 maths game in one place — fractions, times tables, division and 24-hour time.</p>
+      <a class="play" href="https://mrsmsim.github.io/P3Math">Go to P3 Maths →</a>
     </div>
 
-    <div class="card">
-      <span class="tag">Multiplication facts</span>
-      <h3>Times Tables Racer</h3>
-      <p class="desc">Race a rival car — pick your tables, pick your speed, go!</p>
-      <a class="play" href="https://mrsmsim.github.io/multiplication">Play now →</a>
+    <!-- TO ADD: paste the real link in href, then delete this opening comment line and the closing arrow line below the card.
+
+    <div class="card" data-level="P4">
+      <span class="new">NEW</span>
+      <span class="tag">P4 · Long division</span>
+      <h3>Division Detective HQ</h3>
+      <p class="desc">Crack long division step by step — divide, multiply, subtract, bring down.</p>
+      <a class="play" href="PASTE-LINK-HERE">Play now →</a>
     </div>
+
+    -->
 
   </div>
 </section>
@@ -421,5 +550,41 @@ footer{
 <footer>made with 💜 by Mrs Sim · Dazhong Primary School</footer>
 
 </div>
+<script>
+(function(){
+  var KEY='mrsmsim-level';
+  var buttons=document.querySelectorAll('.levels button');
+  var sections=document.querySelectorAll('.wing.el');
+  var empty=document.getElementById('emptyLevel');
+
+  function apply(level){
+    var anyShown=false;
+    sections.forEach(function(sec){
+      var shown=0;
+      sec.querySelectorAll('.card').forEach(function(card){
+        var ok = level==='all' || card.getAttribute('data-level')===level;
+        card.hidden=!ok;
+        if(ok) shown++;
+      });
+      sec.hidden = shown===0;
+      if(shown) anyShown=true;
+    });
+    empty.classList.toggle('show', !anyShown);
+    buttons.forEach(function(b){
+      b.setAttribute('aria-pressed', b.getAttribute('data-pick')===level ? 'true':'false');
+    });
+    try{ localStorage.setItem(KEY, level); }catch(e){}
+  }
+
+  buttons.forEach(function(b){
+    b.addEventListener('click', function(){ apply(b.getAttribute('data-pick')); });
+  });
+
+  var start='all';
+  try{ start=localStorage.getItem(KEY)||'all'; }catch(e){}
+  if(!document.querySelector('.levels button[data-pick="'+start+'"]')) start='all';
+  apply(start);
+})();
+</script>
 </body>
 </html>
